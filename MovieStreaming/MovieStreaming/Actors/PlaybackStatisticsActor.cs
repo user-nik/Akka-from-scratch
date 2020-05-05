@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using MovieStreaming.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,26 @@ namespace MovieStreaming.Actors
         public PlaybackStatisticsActor()
         {
             Context.ActorOf(Props.Create<MoviePlayCounterActor>(), "MoviePlayCounter");
+        }
+
+        protected override SupervisorStrategy SupervisorStrategy()
+        {
+            return new OneForOneStrategy(
+                    execption =>
+                    {
+                        if(execption is SimulatedCorruptStateException)
+                        {
+                            return Directive.Restart;
+                        }
+                        if(execption is SimulatedTerribleMovieException)
+                        {
+                            return Directive.Resume;
+                        }
+
+                        return Directive.Restart;
+                    }
+                );
+
         }
 
         #region Lifecycle hooks
