@@ -11,10 +11,13 @@ namespace MovieStreaming.Actors
     public class PlaybackActor : ReceiveActor
     {
         private readonly IActorRef _userCoordinator;
+        private readonly IActorRef _statistics;
 
         public PlaybackActor()
         {
             _userCoordinator = Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinator");
+            _statistics = Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatistics");
+
 
             Receive<PlayMovieMessage>(message =>
             {

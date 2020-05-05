@@ -21,6 +21,11 @@ namespace MovieStreaming
             }
         }
 
+        internal static void WriteWhite(string message)
+        {
+            PrintColoredMessage(ConsoleColor.White, message);
+        }
+
         public static void WriteLineGreen(string message)
         {
             PrintColoredMessage(ConsoleColor.Green, message);
@@ -29,6 +34,11 @@ namespace MovieStreaming
         internal static void WriteLineCyan(string message)
         {
             PrintColoredMessage(ConsoleColor.Cyan, message);
+        }
+
+        internal static void WriteMagenta(string message)
+        {
+            PrintColoredMessage(ConsoleColor.Magenta, message);
         }
 
         internal static void WriteLineGray(string message)
