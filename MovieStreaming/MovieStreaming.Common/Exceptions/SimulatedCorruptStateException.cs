@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieStreaming.Exceptions
+namespace MovieStreaming.Common.Exceptions
 {
     public class SimulatedCorruptStateException : Exception
     {

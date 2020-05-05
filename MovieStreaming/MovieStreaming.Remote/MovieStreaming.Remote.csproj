@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2B9A4259-912D-40A4-B83D-A05B9520C9D6}</ProjectGuid>
+    <ProjectGuid>{BB32D70C-5467-485D-BD3D-6D145E72D973}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MovieStreaming</RootNamespace>
-    <AssemblyName>MovieStreaming</AssemblyName>
+    <RootNamespace>MovieStreaming.Remote</RootNamespace>
+    <AssemblyName>MovieStreaming.Remote</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

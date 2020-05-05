@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieStreaming
+namespace MovieStreaming.Common
 {
     public static class ColorConsole
     {
@@ -21,7 +21,7 @@ namespace MovieStreaming
             }
         }
 
-        internal static void WriteWhite(string message)
+        public static void WriteWhite(string message)
         {
             PrintColoredMessage(ConsoleColor.White, message);
         }
@@ -31,17 +31,17 @@ namespace MovieStreaming
             PrintColoredMessage(ConsoleColor.Green, message);
         }
 
-        internal static void WriteLineCyan(string message)
+        public static void WriteLineCyan(string message)
         {
             PrintColoredMessage(ConsoleColor.Cyan, message);
         }
 
-        internal static void WriteMagenta(string message)
+        public static void WriteMagenta(string message)
         {
             PrintColoredMessage(ConsoleColor.Magenta, message);
         }
 
-        internal static void WriteLineGray(string message)
+        public static void WriteLineGray(string message)
         {
             PrintColoredMessage(ConsoleColor.Gray, message);
         }
@@ -51,7 +51,7 @@ namespace MovieStreaming
             PrintColoredMessage(ConsoleColor.Yellow, message);
         }
 
-        internal static void WriteLineRed(string message)
+        public static void WriteLineRed(string message)
         {
             PrintColoredMessage(ConsoleColor.Red, message);
 

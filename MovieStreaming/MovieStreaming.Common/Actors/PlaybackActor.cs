@@ -1,12 +1,12 @@
 ﻿using Akka.Actor;
-using MovieStreaming.Messages;
+using MovieStreaming.Common.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieStreaming.Actors
+namespace MovieStreaming.Common.Actors
 {
     public class PlaybackActor : ReceiveActor
     {
@@ -18,15 +18,6 @@ namespace MovieStreaming.Actors
             _userCoordinator = Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinator");
             _statistics = Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatistics");
 
-
-            Receive<PlayMovieMessage>(message =>
-            {
-                ColorConsole.WriteLineGreen(
-                    $"PlaybackActor received" +
-                    $"PlayMovieMessage '{message.MovieTitle}' for user {message.UserId}");
-
-                _userCoordinator.Tell(message);
-            });
         }
         #region hooks
 

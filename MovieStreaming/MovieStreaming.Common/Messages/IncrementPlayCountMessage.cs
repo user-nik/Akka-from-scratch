@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieStreaming.Messages
+namespace MovieStreaming.Common.Messages
 {
     public class IncrementPlayCountMessage
     {
