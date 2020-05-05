@@ -42,7 +42,7 @@ namespace MovieStreaming.Actors
             if (!_users.ContainsKey(userId))
             {
                 IActorRef newChildActorRef =
-                    Context.ActorOf(Props.Create(() => new UserActor(userId), "user" + userId));
+                    Context.ActorOf(Props.Create(() => new UserActor(userId)), "user" + userId);
 
                 _users.Add(userId, newChildActorRef);
 
@@ -54,24 +54,24 @@ namespace MovieStreaming.Actors
 
         protected override void PreStart()
         {
-            ColorConsole.WriteLineCyan(" UserCoordinatorActor prestart");
+            ColorConsole.WriteLineCyan("UserCoordinatorActor prestart");
         }
 
         protected override void PostStop()
         {
-            ColorConsole.WriteLineCyan(" UserCoordinatorActor PostStop");
+            ColorConsole.WriteLineCyan("UserCoordinatorActor PostStop");
         }
 
         protected override void PreRestart(Exception reason, object message)
         {
-            ColorConsole.WriteLineCyan(" UserCoordinatorActor PreRestart " + reason);
+            ColorConsole.WriteLineCyan("UserCoordinatorActor PreRestart " + reason);
 
             base.PreRestart(reason, message);
         }
 
         protected override void PostRestart(Exception reason)
         {
-            ColorConsole.WriteLineCyan(" UserCoordinatorActor PostRestart " + reason);
+            ColorConsole.WriteLineCyan("UserCoordinatorActor PostRestart " + reason);
 
             base.PostRestart(reason);
         }

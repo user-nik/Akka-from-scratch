@@ -10,10 +10,20 @@ namespace MovieStreaming.Actors
 {
     public class PlaybackActor : ReceiveActor
     {
+        private readonly IActorRef _userCoordinator;
+
         public PlaybackActor()
         {
-            Context.ActorOf(Props.Create<UserCoordinator>(), "UserCoordinator");
-            Context.ActorOf(Props.Create<PlaybackStatisticsActor>(), "PlaybackStatisticsActor");
+            _userCoordinator = Context.ActorOf(Props.Create<UserCoordinatorActor>(), "UserCoordinator");
+
+            Receive<PlayMovieMessage>(message =>
+            {
+                ColorConsole.WriteLineGreen(
+                    $"PlaybackActor received" +
+                    $"PlayMovieMessage '{message.MovieTitle}' for user {message.UserId}");
+
+                _userCoordinator.Tell(message);
+            });
         }
         #region hooks
 

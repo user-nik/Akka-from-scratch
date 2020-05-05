@@ -8,12 +8,17 @@ namespace MovieStreaming
 {
     public static class ColorConsole
     {
+        static object locker = new object();
+
         private static void PrintColoredMessage(ConsoleColor color, string message)
         {
-            var beforeColor = Console.ForegroundColor;
-            Console.ForegroundColor = color;
-            Console.WriteLine(message);
-            Console.ForegroundColor = beforeColor;
+            lock (locker)
+            {
+                var beforeColor = Console.ForegroundColor;
+                Console.ForegroundColor = color;
+                Console.WriteLine(message);
+                Console.ForegroundColor = beforeColor;
+            }
         }
 
         public static void WriteLineGreen(string message)

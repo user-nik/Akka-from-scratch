@@ -6,14 +6,13 @@ namespace MovieStreaming.Actors
 {
     public class UserActor : ReceiveActor
     {
-
+        private readonly int _userId;
         private string _currentWatching;
 
-        public UserActor()
+        public UserActor(int userId)
         {
-            Console.WriteLine("creating actor");
+            _userId = userId;
 
-            ColorConsole.WriteLineCyan("setting inital behavior stopped");
             Stopped();
         }
 
@@ -25,7 +24,7 @@ namespace MovieStreaming.Actors
             Receive<StopMovieMessage>(
                 message => StopPlayingCurrentMovie());
 
-            ColorConsole.WriteLineCyan("useractor has become playing");
+            ColorConsole.WriteLineYellow($"useractor {_userId} has become playing");
         }
 
         private void Stopped()
@@ -34,13 +33,13 @@ namespace MovieStreaming.Actors
             Receive<StopMovieMessage>(
                 message => ColorConsole.WriteLineRed("cannot stop if nothing is playing"));
 
-            ColorConsole.WriteLineCyan("useractor has become stopped");
+            ColorConsole.WriteLineYellow($"useractor {_userId} has become stopped");
         }
 
 
         private void StopPlayingCurrentMovie()
         { 
-            ColorConsole.WriteLineYellow($"user is watching {_currentWatching}");
+            ColorConsole.WriteLineYellow($"Actor {_userId} is watching {_currentWatching}");
 
             _currentWatching = null;
 
@@ -52,7 +51,7 @@ namespace MovieStreaming.Actors
         {
             _currentWatching = movieTitle;
 
-            ColorConsole.WriteLineYellow($"user is watching {_currentWatching}");
+            ColorConsole.WriteLineYellow($"Actor {_userId} is watching {_currentWatching}");
 
             Become(Playing);
         }
@@ -60,24 +59,24 @@ namespace MovieStreaming.Actors
         #region hooks
         protected override void PreStart()
         {
-            ColorConsole.WriteLineGreen("Actor prestart");
+            ColorConsole.WriteLineYellow($"Actor {_userId} prestart");
         }
 
         protected override void PostStop()
         {
-            ColorConsole.WriteLineGreen("Actor PostStop");
+            ColorConsole.WriteLineYellow($"Actor {_userId} PostStop");
         }
 
         protected override void PreRestart(Exception reason, object message)
         {
-            ColorConsole.WriteLineGreen("Actor PreRestart " + reason);
+            ColorConsole.WriteLineYellow($"Actor {_userId} PreRestart " + reason);
 
             base.PreRestart(reason, message);
         }
 
         protected override void PostRestart(Exception reason)
         {
-            ColorConsole.WriteLineGreen("Actor PostRestart " + reason);
+            ColorConsole.WriteLineYellow($"Actor {_userId} PostRestart " + reason);
 
             base.PostRestart(reason);
         }

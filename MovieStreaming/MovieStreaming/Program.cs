@@ -2,6 +2,7 @@
 using MovieStreaming.Actors;
 using MovieStreaming.Messages;
 using System;
+using System.Threading;
 
 namespace MovieStreaming
 {
@@ -14,14 +15,13 @@ namespace MovieStreaming
             Console.WriteLine("created");
 
             IActorRef userActorRef = MovieStreamingActorSystem.ActorOf(
-                Props.Create<UserActor>(), "UserActor");
+                Props.Create<PlaybackActor>(), "Playback");
 
             do
             {
                 ShortPause();
 
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 ColorConsole.WriteLineGray("enter a command and hit");
 
                 var command = Console.ReadLine();
@@ -32,7 +32,7 @@ namespace MovieStreaming
                     string movieTitle = command.Split(',')[2];
 
                     var message = new PlayMovieMessage(movieTitle, userId);
-                    MovieStreamingActorSystem.ActorSelection("/user/Playback/UserCooridnator").Tell(message);
+                    MovieStreamingActorSystem.ActorSelection("/user/Playback/UserCoordinator").Tell(message);
                 }
 
                 if (command.StartsWith("stop"))
@@ -40,7 +40,7 @@ namespace MovieStreaming
                     int userId = int.Parse(command.Split(',')[1]);
 
                     var message = new StopMovieMessage(userId);
-                    MovieStreamingActorSystem.ActorSelection("/user/Playback/UserCooridnator").Tell(message);
+                    MovieStreamingActorSystem.ActorSelection("/user/Playback/UserCoordinator").Tell(message);
                 }
 
                 if (command.StartsWith("exit"))
@@ -56,29 +56,11 @@ namespace MovieStreaming
             } while (true);
 
 
+        }
 
-            Console.ReadKey();
-            Console.WriteLine("sending play moviemessage Akka: the Movie");
-            userActorRef.Tell(new PlayMovieMessage("Akka: the Movie", 42));
-
-            Console.ReadKey();
-            Console.WriteLine("sending play moviemessage Recall");
-            userActorRef.Tell(new PlayMovieMessage("Recall", 99));
-
-            Console.ReadKey();
-            Console.WriteLine("sending a stopMovieMessage");
-            userActorRef.Tell(new StopMovieMessage());
-            //userActorRef.Tell(PoisonPill.Instance);
-
-            Console.ReadKey();
-            Console.WriteLine("sending a stopMovieMessage");
-            userActorRef.Tell(new StopMovieMessage());
-
-            
-
-            Console.ReadKey();
-
-            
+        private static void ShortPause()
+        {
+            Thread.Sleep(450);
         }
     }
 }
