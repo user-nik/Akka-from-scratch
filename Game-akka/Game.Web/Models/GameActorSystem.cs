@@ -18,7 +18,11 @@ namespace Game.Web.Models
             _gameEventsPusher = new SignalRGameEventPusher();
             ActorSystem = ActorSystem.Create("GameSystem");
 
-            ActorReference.GameController = ActorSystem.ActorOf<GameControllerActor>();
+            ActorReference.GameController = ActorSystem
+               .ActorSelection("akka.tcp://GameSystem@127.0.0.1:8091/user/GameController")
+                    .ResolveOne(TimeSpan.FromSeconds(3))
+                    .Result;
+
 
 
             ActorReference.SignalRBridge = ActorSystem.ActorOf(

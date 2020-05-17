@@ -91,6 +91,14 @@
 
     }
 
+    $.connection.hub.disconnected(function () {
+
+        setTimeout(function () {
+            $.connection.hub.start();
+        }, 5000)
+
+    })
+
     $.connection.hub.start();
 
 
@@ -127,7 +135,8 @@
 
         self.thisPlayer = ko.observable(new PlayerViewModel('', NaN));
 
-        self.otherPlayers = ko.observableArray();
+        self.otherPlayers = ko.observableArray().extend(
+            { rateLimit: { timeout: 500, method: "notifyWhenChangesStop" } });
 
         self.joinGame = function () {
             gameHub.server.joinGame(self.newPlayerName());
